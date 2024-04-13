@@ -19,7 +19,7 @@ CREATE TABLE `Incident` (
     `incidentid` VARCHAR(191) NOT NULL,
     `content` VARCHAR(191) NOT NULL,
     `dateOccured` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `name` VARCHAR(191) NOT NULL,
     `damage` INTEGER NOT NULL,
     `patientid` VARCHAR(191) NOT NULL,

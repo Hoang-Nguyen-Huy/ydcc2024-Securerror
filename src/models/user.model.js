@@ -39,7 +39,7 @@ User.create = async(newUser) => {
         return createdUser;
     } catch(error) {
         console.error("Error creating user: ", error);
-        result(error, null);
+        throw error;
     }
 };
 

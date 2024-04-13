@@ -29,7 +29,7 @@ model Incident {
   incidentid String @id @default(cuid())
   content String
   dateOccured String
-  createdAt DateTime
+  createdAt DateTime @default(now())
   name String
   damage Int
   patientid String
