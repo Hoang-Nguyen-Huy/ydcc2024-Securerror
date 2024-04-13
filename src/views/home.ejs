@@ -14,30 +14,122 @@
             <button type="button" class="btn btn-primary">Log out</button>
         </a>
     
-        <form method="post">
+        <form id="incidentCountForm">
             <div class="row">
-                <label class="form-label" for="dateOccured">Date occured: </label>
-                <input class="form-control" type="date" name="dateOccured" id="dateOccured">
+                <label class="form-label" for="incidentCount">Number of Incidents: </label>
+                <input class="form-control" type="number" name="incidentCount" id="incidentCount" min="1" required>
             </div>
-    
-            <div class="row">
-                <label class="form-label" for="name">Name of Assest</label>
-                <input class="form-control" type="text" name="name" id="name">
-            </div>
-
-            <div class="row">
-                <label class="form-label" for="content">Content of the incident</label>
-                <input class="form-control" type="text" name="content" id="content">
-            </div>
-    
-            <div class="row">
-                <label class="form-label" for="damage">Damage</label>
-                <input class="form-control" type="number" name="damage" id="damage">
-            </div>  
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="generateIncidentForms()">Submit</button>
         </form>
-
     </div>
+    <script>
+        function generateIncidentForms() {
+            const incidentCount = parseInt(document.getElementById('incidentCount').value);
+    
+            if (incidentCount < 1) {
+                alert('Please enter a valid number of incidents (minimum 1).');
+                return;
+            }
+    
+            const formContainer = document.createElement('div');
+    
+            for (let i = 0; i < incidentCount; i++) {
+                const incidentForm = document.createElement('form');
+                incidentForm.method = 'post';
+    
+                const dateOccuredInput = createFormInput('dateOccured', i);
+                const nameInput = createFormInput('name', i);
+                const contentInput = createFormInput('content', i);
+                const damageInput = createFormInput('damage', i);
+    
+                // Append inputs to the form
+                incidentForm.appendChild(dateOccuredInput);
+                incidentForm.appendChild(nameInput);
+                incidentForm.appendChild(contentInput);
+                incidentForm.appendChild(damageInput);
+    
+                formContainer.appendChild(incidentForm);
+            }
+    
+            // Clear existing forms and append new incident forms
+            const existingForms = document.getElementById('incidentForms');
+            if (existingForms) {
+                existingForms.remove();
+            }
+    
+            formContainer.id = 'incidentForms';
+            document.querySelector('.container').appendChild(formContainer);
+    
+            // Create a single submit button
+            const submitButton = document.createElement('button');
+            submitButton.type = 'button';
+            submitButton.className = 'btn btn-primary';
+            submitButton.innerText = 'Submit All Incidents';
+            submitButton.onclick = submitAllIncidents;
+    
+            // Append the submit button
+            document.querySelector('.container').appendChild(submitButton);
+        }
+    
+        function createFormInput(fieldName, index) {
+            const input = document.createElement('input');
+            input.type = (fieldName === 'dateOccured') ? 'date' : 'text';
+            input.name = `${fieldName}[${index}]`;
+            input.className = 'form-control';
+            input.required = true;
+            input.placeholder = `${fieldName} ${index + 1}`;
+            return input;
+        }
+    
+        function submitAllIncidents() {
+            const incidentForms = document.querySelectorAll('#incidentForms form');
+            const formData = [];
+
+            // Collect data from all incident forms
+            incidentForms.forEach(form => {
+                const formDataObj = {};
+
+                // Collect data from inputs and store in an object
+                const inputs = form.querySelectorAll('input');
+                inputs.forEach(input => {
+                    const fieldName = input.name.split('[')[0];
+                    const index = parseInt(input.name.split('[')[1].replace(']', ''));
+                    if (!formDataObj[index]) {
+                        formDataObj[index] = {};
+                    }
+                    formDataObj[index][fieldName] = input.value;
+                });
+
+                // Convert each object into an array of objects
+                const incidentData = Object.values(formDataObj);
+                formData.push(...incidentData);
+            });
+
+            // You can now process the formData array or send it to the server
+            console.log('All incidents data:', formData);
+
+            // Send formData to the server using fetch
+            fetch('/home', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Gửi dữ liệu dưới dạng JSON
+                },
+                body: JSON.stringify(formData) // Chuyển đổi formData thành JSON string trước khi gửi
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Incidents submitted successfully!');
+                } else {
+                    throw new Error('Failed to submit incidents.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting incidents:', error);
+                alert('Failed to submit incidents.');
+            });
+        }
+
+    </script>    
+    
 </body>
 </html>
