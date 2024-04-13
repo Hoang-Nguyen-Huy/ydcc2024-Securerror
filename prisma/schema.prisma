@@ -21,6 +21,35 @@ model User {
   role Int @default(1)
   country String?
   phone String? @unique
+  incident Incident[]
+  solution Solution[]
+}
+
+model Incident {
+  incidentid String @id @default(cuid())
+  content String
+  dateOccured String
+  createdAt DateTime
+  name String
+  damage Int
+  patientid String
+  user User @relation(fields: [patientid], references: [userid])
+  solution Solution []
+}
+
+model Solution {
+  solutionid String @id @default(cuid())
+  content String
+  patientid String
+  problemid String
+  user User @relation(fields: [patientid], references: [userid])
+  incident Incident @relation(fields: [problemid], references: [incidentid])
+}
+
+model srcSolution {
+  id String @id @default(cuid())
+  content String
+  problem String
 }
 
 
