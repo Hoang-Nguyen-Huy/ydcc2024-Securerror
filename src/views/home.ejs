@@ -41,12 +41,14 @@
                 const nameInput = createFormInput('name', i);
                 const contentInput = createFormInput('content', i);
                 const damageInput = createFormInput('damage', i);
+                const hoursLostInput = createFormInput('hoursLost', i);
     
                 // Append inputs to the form
                 incidentForm.appendChild(dateOccuredInput);
                 incidentForm.appendChild(nameInput);
                 incidentForm.appendChild(contentInput);
                 incidentForm.appendChild(damageInput);
+                incidentForm.appendChild(hoursLostInput);
     
                 formContainer.appendChild(incidentForm);
             }

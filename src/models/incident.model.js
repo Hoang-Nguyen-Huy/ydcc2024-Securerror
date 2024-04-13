@@ -9,6 +9,7 @@ const Incident = function(incident) {
     this.createdAt = incident.createdAt,
     this.name = incident.name,
     this.damage = incident.damage,
+    this.hoursLost = incident.hoursLost,
     this.patientid = incident.patientid
 }
 
@@ -39,6 +40,10 @@ Incident.create = async (newIncident, result) => {
             newIncident.damage = parseInt(newIncident.damage, 10); // Chuyển đổi sang số nguyên
         }
 
+        if (typeof newIncident.hoursLost === 'string') {
+            newIncident.hoursLost = parseInt(newIncident.hoursLost, 10); // Chuyển đổi sang số nguyên
+        }
+
         const formattedDateOccured = newIncident.dateOccured.toISOString();
 
         const createdIncident = await prisma.incident.create({
@@ -48,6 +53,7 @@ Incident.create = async (newIncident, result) => {
                 dateOccured: formattedDateOccured,
                 name: newIncident.name, 
                 damage: newIncident.damage,
+                hoursLost: newIncident.hoursLost,
                 patientid: newIncident.patientid
             }
         });

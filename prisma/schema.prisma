@@ -32,6 +32,7 @@ model Incident {
   createdAt DateTime @default(now())
   name String
   damage Int
+  hoursLost Int
   patientid String
   user User @relation(fields: [patientid], references: [userid])
   solution Solution []

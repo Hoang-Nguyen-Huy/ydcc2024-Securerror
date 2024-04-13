@@ -22,6 +22,7 @@ CREATE TABLE `Incident` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `name` VARCHAR(191) NOT NULL,
     `damage` INTEGER NOT NULL,
+    `hoursLost` INTEGER NOT NULL,
     `patientid` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`incidentid`)
