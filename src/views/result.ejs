@@ -17,6 +17,18 @@
         <% } else { %>
             <p>No incident found.</p>
         <% } %>
+        <table class="table table-hover">
+            <tr>
+                <th>Vulnerability</th>
+                <th>Likelihood</th>
+                <th>Potential Impact</th>
+            </tr>
+            <tr>
+                <td>NOt yet</td>
+                <td><%= likelihoodRank %></td>
+                <td><%= nearestIncident.hoursLost %></td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
