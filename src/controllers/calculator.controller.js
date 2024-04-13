@@ -76,6 +76,8 @@ exports.calculate = async (req, res) => {
         console.log('Không tìm thấy sự cố nào.');
     }
 
-
-    
+    res.render('result', {
+        likelihoodRank,
+        nearestIncident
+    });
 };

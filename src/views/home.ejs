@@ -120,7 +120,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Incidents submitted successfully!');
+                    window.location.href = '/result';
                 } else {
                     throw new Error('Failed to submit incidents.');
                 }
