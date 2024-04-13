@@ -13,7 +13,7 @@ const Incident = function(incident) {
     this.patientid = incident.patientid
 }
 
-Incident.create = async (newIncident, result) => {
+Incident.create = async (newIncident) => {
     //Generate a random UUID (v4)
     const uuid = crypto.randomUUID();
 
@@ -59,12 +59,28 @@ Incident.create = async (newIncident, result) => {
         });
 
         console.log('created incident: ', { ...createdIncident });
-        result(null, {
-            ...createdIncident
-        });
+        // result(null, {
+        //     ...createdIncident
+        // });
+        return createdIncident;
     } catch (error) {
         console.error('Error creating incident: ', error);
         result(error, null);
+    }
+};
+
+Incident.getByPatientId = async (userid) => {
+    try {
+        const incidents = await prisma.incident.findMany({
+            where: {
+                patientid: userid
+            }
+        });
+
+        return incidents;
+    } catch (error) {
+        console.error('Error getting incidents by patientid:', error);
+        throw new Error('Failed to get incidents by patientid');
     }
 };
 
