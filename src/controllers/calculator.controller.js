@@ -28,19 +28,13 @@ exports.calculate = async (req, res) => {
 
         // Tìm các srcSolution khớp với incident
         allSrcSolutions.forEach(srcSol => {
-            if (srcSol.problem.includes(incident.content.toLowerCase()) || srcSol.problem.includes(incident.name.toLowerCase())) {
+            if (srcSol.problem.includes(incident.content) || srcSol.problem.includes(incident.name)) {
                 uniqueMatchingSolutions.add(srcSol);
             }
         });
     });
 
     const matchingSolutions = Array.from(uniqueMatchingSolutions);
-
-    for(let sol of matchingSolutions) {
-        sol.patientid = patientid;
-        await createSingleSolution(sol);
-    }
-
     // Số lượng năm duy nhất là độ dài của Set uniqueYears
     const numberOfYears = uniqueYears.size;
 
@@ -116,13 +110,3 @@ exports.calculate = async (req, res) => {
         matchingSolutions
     });
 };
-
-
-async function createSingleSolution(solution) {
-    try {
-        const newSol = await Solution.create(solution);
-    } catch (error) {
-        console.error('Error creating solution: ', error);
-        throw error;
-    }
-}
