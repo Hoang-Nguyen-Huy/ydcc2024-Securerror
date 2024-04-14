@@ -10,13 +10,6 @@
 <body>
     <div class="container">
         <h1>Result</h1>
-        <p>Likelihood: <%= likelihoodRank %></p>
-        <% if (nearestIncident) { %>
-            <p>Damage of nearest incident: <%= nearestIncident.damage %></p>
-            <p>Hours Lost of nearest incident: <%= nearestIncident.hoursLost %></p>
-        <% } else { %>
-            <p>No incident found.</p>
-        <% } %>
         <table class="table table-hover">
             <tr>
                 <th>Vulnerability</th>
@@ -24,10 +17,24 @@
                 <th>Potential Impact</th>
             </tr>
             <tr>
-                <td>NOt yet</td>
+                <td><%= likelihoodRank * potentialImpactRank %></td>
                 <td><%= likelihoodRank %></td>
-                <td><%= nearestIncident.hoursLost %></td>
+                <td><%= potentialImpactRank %></td>
             </tr>
+        </table>
+
+        <h2>Solution</h2>
+        <table class="table table-hover">
+            <tr>
+                <th>Problem</th>
+                <th>Solution</th>
+            </tr>
+            <% matchingSolutions.forEach(solution => { %>
+                <tr>
+                    <td><%= solution.problem %></td>
+                    <td><%= solution.content %></td>
+                </tr>
+            <% }); %>
         </table>
     </div>
 </body>

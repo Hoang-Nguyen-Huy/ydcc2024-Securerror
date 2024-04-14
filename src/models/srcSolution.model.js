@@ -19,7 +19,7 @@ srcSolution.create = async(newSrcSol) => {
     newSrcSol.solutionid = md5hash;
 
     try {
-        const createdSrcSol = await prisma.create({
+        const createdSrcSol = await prisma.srcSolution.create({
             data: {
                 id: newSrcSol.id, 
                 content: newSrcSol.content, 
@@ -31,3 +31,15 @@ srcSolution.create = async(newSrcSol) => {
         throw error;
     }
 };
+
+srcSolution.getAll = async () => {
+    try {
+        const allSrcSolutions = await prisma.srcSolution.findMany();
+        return allSrcSolutions.map(srcSol => new srcSolution(srcSol));
+    } catch (error) {
+        console.error("Error fetching all srcSolutions: ", error);
+        throw error;
+    }
+};
+
+module.exports = srcSolution;

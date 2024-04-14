@@ -33,7 +33,6 @@ CREATE TABLE `Solution` (
     `solutionid` VARCHAR(191) NOT NULL,
     `content` VARCHAR(191) NOT NULL,
     `patientid` VARCHAR(191) NOT NULL,
-    `problemid` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`solutionid`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -52,6 +51,3 @@ ALTER TABLE `Incident` ADD CONSTRAINT `Incident_patientid_fkey` FOREIGN KEY (`pa
 
 -- AddForeignKey
 ALTER TABLE `Solution` ADD CONSTRAINT `Solution_patientid_fkey` FOREIGN KEY (`patientid`) REFERENCES `User`(`userid`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Solution` ADD CONSTRAINT `Solution_problemid_fkey` FOREIGN KEY (`problemid`) REFERENCES `Incident`(`incidentid`) ON DELETE RESTRICT ON UPDATE CASCADE;

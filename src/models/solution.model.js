@@ -20,12 +20,11 @@ Solution.create = async(newSol) => {
     newSol.solutionid = md5hash;
 
     try {
-        const createdSolution = await prisma.create({
+        const createdSolution = await prisma.solution.create({
             data: {
                 solutionid: newSol.solutionid, 
                 content: newSol.content, 
-                patientid: newSol.patientid, 
-                problemid: newSol.problemid
+                patientid: newSol.patientid
             }
         });
     } catch(error) {
@@ -33,3 +32,5 @@ Solution.create = async(newSol) => {
         throw error;
     }
 };
+
+module.exports = Solution;

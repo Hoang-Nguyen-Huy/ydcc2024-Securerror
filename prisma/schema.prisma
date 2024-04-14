@@ -35,16 +35,13 @@ model Incident {
   hoursLost Int
   patientid String
   user User @relation(fields: [patientid], references: [userid])
-  solution Solution []
 }
 
 model Solution {
   solutionid String @id @default(cuid())
   content String
   patientid String
-  problemid String
   user User @relation(fields: [patientid], references: [userid])
-  incident Incident @relation(fields: [problemid], references: [incidentid])
 }
 
 model srcSolution {
