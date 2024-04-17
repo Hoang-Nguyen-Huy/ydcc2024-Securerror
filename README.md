@@ -32,8 +32,12 @@ Additionally, your project uses a `.env` file to manage environment variables, a
 1. Clone the repository to your machine:
    ```bash
    git clone https://github.com/Hoang-Nguyen-Huy/ydcc2024-Securerror
-
+   ```
+2. Install npm and start
+   ```bash
    npm i
 
    npm start
     ```
+
+## [Our topic presentation](https://www.canva.com/design/DAGCS5j8ABw/jeNw_mpG6-caA9IAYnV7SQ/edit?utm_content=DAGCS5j8ABw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton&fbclid=IwZXh0bgNhZW0CMTAAAR13F39p-5qiVb-DXH0FthR56jzT1CpR6dy8G5TjjdQHvqgwCQXEBLIfjlw_aem_ATt5t0xfZGO-pijamhU7BUb-Kf3pcAtNmaSJY0T9_dAh-mQZbUBAcWrxJhKNNTAdRW4hEDIeITzQtCMFoPO-rvTA)
